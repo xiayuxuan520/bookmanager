@@ -44,4 +44,13 @@ class PeopleInfoSerializer(serializers.Serializer):
     # book = serializers.PrimaryKeyRelatedField(read_only=True)
     # ③如果我们期望获取外键关联的字符串的信息，这个时候我们可以使用StringRelationField
     # （即__str__方法的返回值）
-    book = serializers.StringRelatedField(label='图书')
+    #book = serializers.StringRelatedField(label='图书')
+    # ④如果我们期望获取，book所关联的模型的所有数据,这个时候我们就定又book=BookInfoSerializer()
+    # book=关联的BookInfo的一个关联对象数据
+    # book=BookInfo. objects. get(id=xxx)
+    # book=BookInfoSerializer(instance=book).data
+    # 等号右边的book是模型对象
+    # 等号左边的book是字典数据
+    book = BookInfoSerializer()
+
+
