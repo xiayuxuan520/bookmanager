@@ -1,4 +1,7 @@
 from rest_framework import serializers
+
+from book.models import BookInfo
+
 """
 序列化器类
 ①将对象转换为字典
@@ -31,5 +34,11 @@ class PeopleInfoSerializer(serializers.Serializer):
     ###对外键进行学习
     # ①如果我们定又的序列化器外键字段类型为IntegerField
     # 那么,我们定又的序列化器字段名必须和数据库中的外键字段名一致
-    book_id = serializers.IntegerField(label='书籍id')
-
+    #//book_id = serializers.IntegerField(label='书籍id')
+    # ②如果我们期望的外键数据的key就是模型字段的名字,
+    # 那么PrimaryKeyRelatedField 就可以获取到关联的模型id值
+    # queryset在验证数据的时候,我们要告诉系统,
+    # 在哪里匹配外键数据
+    #book = serializers.PrimaryKeyRelatedField(queryset=BookInfo.objects.all())
+    # read only=True意思就是我不验证数据了
+    book = serializers.PrimaryKeyRelatedField(read_only=True)
