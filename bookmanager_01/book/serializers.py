@@ -41,4 +41,7 @@ class PeopleInfoSerializer(serializers.Serializer):
     # 在哪里匹配外键数据
     #book = serializers.PrimaryKeyRelatedField(queryset=BookInfo.objects.all())
     # read only=True意思就是我不验证数据了
-    book = serializers.PrimaryKeyRelatedField(read_only=True)
+    # book = serializers.PrimaryKeyRelatedField(read_only=True)
+    # ③如果我们期望获取外键关联的字符串的信息，这个时候我们可以使用StringRelationField
+    # （即__str__方法的返回值）
+    book = serializers.StringRelatedField(label='图书')
