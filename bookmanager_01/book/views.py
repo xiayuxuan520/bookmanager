@@ -97,9 +97,19 @@ class BookDetailView(View):
 from book.serializers import BookInfoSerializer
 from book.models import BookInfo
 # 1. 模拟查询一个对象
-book = BookInfo.objects.get(id=1)
+book = BookInfo.objects.all()
 # BookInfoSerializer(instance=对象，data=字典)
 # 2.实例化序列化，将对象数据传给序列化器
-serializer = BookInfoSerializer(instance=book)
+serializer = BookInfoSerializer(instance=book, many=True)
 # 3.获取序列化器将对象转换为字典数据
+serializer.data
+
+
+from book.models import PeopleInfo
+from book.serializers import PeopleInfoSerializer
+
+people = PeopleInfo.objects.get(id=1)
+
+serializer = PeopleInfoSerializer(instance=people)
+
 serializer.data

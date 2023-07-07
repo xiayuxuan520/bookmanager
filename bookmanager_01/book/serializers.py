@@ -21,3 +21,15 @@ class BookInfoSerializer(serializers.Serializer):
     readcount = serializers.IntegerField(label='阅读量')
     commentcount = serializers.IntegerField(label='评论量')
 
+
+class PeopleInfoSerializer(serializers.Serializer):
+    """英雄数据序列化器"""
+    id = serializers.IntegerField(label='ID')
+    name = serializers.CharField(label='名字')
+    password = serializers.CharField(label='密码')
+    description = serializers.CharField(label='描述信息')
+    ###对外键进行学习
+    # ①如果我们定又的序列化器外键字段类型为IntegerField
+    # 那么,我们定又的序列化器字段名必须和数据库中的外键字段名一致
+    book_id = serializers.IntegerField(label='书籍id')
+
