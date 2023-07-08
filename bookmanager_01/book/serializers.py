@@ -16,6 +16,13 @@ from book.models import BookInfo
 """
 
 
+class PeopleIRelatedSerializer(serializers.Serializer):
+    """英雄数据序列化器"""
+    id = serializers.IntegerField(label='ID')
+    name = serializers.CharField(label='名字')
+    password = serializers.CharField(label='密码')
+
+
 class BookInfoSerializer(serializers.Serializer):
     """图书数据序列化器"""
     id = serializers.IntegerField(label='ID')
@@ -23,6 +30,7 @@ class BookInfoSerializer(serializers.Serializer):
     pub_date = serializers.DateField(label='发布日期')
     readcount = serializers.IntegerField(label='阅读量')
     commentcount = serializers.IntegerField(label='评论量')
+    people = PeopleIRelatedSerializer(many=True)
 
 
 class PeopleInfoSerializer(serializers.Serializer):
