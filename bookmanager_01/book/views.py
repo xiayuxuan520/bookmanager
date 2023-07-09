@@ -113,3 +113,21 @@ people = PeopleInfo.objects.get(id=1)
 serializer = PeopleInfoSerializer(instance=people)
 
 serializer.data
+
+
+
+# 反序列化的验证
+
+
+from book.serializers import BookInfoSerializer
+
+data = {
+    'name': '机器学习',
+    'pub_date': '2020-01-01',
+    'readcount': 100,
+    'commentcount':200
+}
+
+
+serializer = BookInfoSerializer(data=data)
+serializer.is_valid(raise_exception=True)

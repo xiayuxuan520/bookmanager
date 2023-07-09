@@ -25,12 +25,17 @@ class PeopleIRelatedSerializer(serializers.Serializer):
 
 class BookInfoSerializer(serializers.Serializer):
     """图书数据序列化器"""
-    id = serializers.IntegerField(label='ID')
+    id = serializers.IntegerField(label='ID', required=False)
     name = serializers.CharField(label='名称')
     pub_date = serializers.DateField(label='发布日期')
     readcount = serializers.IntegerField(label='阅读量')
     commentcount = serializers.IntegerField(label='评论量')
-    people = PeopleIRelatedSerializer(many=True)
+    people = PeopleIRelatedSerializer(many=True, required=False)
+
+    def validate_readcount(self, value):
+        if value < 0:
+            raise serializers.ValidationError('阅读数量不能为负数')
+        return value
 
 
 class PeopleInfoSerializer(serializers.Serializer):
@@ -61,4 +66,14 @@ class PeopleInfoSerializer(serializers.Serializer):
     # 等号左边的book是字典数据
     book = BookInfoSerializer()
 
+
+"""
+通过字段的选项来验证数据
+例如:
+CharField (max_ Length=10,min_ Length=5)
+IntegerField(max_ value=10,min_ vaLue=1)
+required=True默认是True
+read only:只用于序列化使用。反序列化的时候忽略该字段
+write_ only:只是用于反序列化使用。序列化的时候忽略该字段
+"""
 
