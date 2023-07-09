@@ -117,9 +117,23 @@ return value
 """
 
 class BookInfoModelSerializer(serializers.ModelSerializer):
+
+    # 重写
+
+    # name = serializers.CharField(max_length=10, min_length=5, required=True)
     # model指明参照哪个模型类
     # fields 指明为模型类的哪些字段生成
     class Meta:
         model = BookInfo
+
+        exclude = ('image',) # 使用exclude可以明确排除掉哪些字段
         fields = '__all__'
+        # fields = ('id', 'name', 'readcount', 'commentcount')
+        # 可以通过read_only_fields指明只读字段，即仅用于序列化输出的字段
+        read_only_fields = ('id', 'readcount', 'commentcount')
+        # 我们可以使用extra_kwargs参数为ModelSerializer添加或修改原有的选项参数
+        extra_kwargs = {
+            'readcount': {'min_value': 0, 'required': True},
+            'commentcount': {'max_value': 0, 'required': True},
+        }
 
