@@ -140,7 +140,7 @@ from book.models import BookInfo
 book = BookInfo.objects.get(id=1)
 
 data = {
-    'name': '神雕英雄传',
+    'name': '神雕英雄传------------',
     'pub_date': '2020-01-01',
     'readcount': 100,
     'commentcount': 20
@@ -154,4 +154,20 @@ serializer.save()
 serializer.data
 
 
+from book.serializers import BookInfoModelSerializer
+
+
+data = {
+    'name': '神雕英雄传------------',
+    'pub_date': '2020-01-01',
+    'readcount': 100,
+    'commentcount': 20
+}
+
+serializer = BookInfoModelSerializer(data=data)
+
+serializer.is_valid(raise_exception=True)
+
+serializer.save()
+serializer.data
 

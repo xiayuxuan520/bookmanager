@@ -116,3 +116,10 @@ return value
 
 """
 
+class BookInfoModelSerializer(serializers.ModelSerializer):
+    # model指明参照哪个模型类
+    # fields 指明为模型类的哪些字段生成
+    class Meta:
+        model = BookInfo
+        fields = '__all__'
+
