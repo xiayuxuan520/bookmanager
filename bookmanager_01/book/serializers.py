@@ -37,6 +37,21 @@ class BookInfoSerializer(serializers.Serializer):
             raise serializers.ValidationError('阅读数量不能为负数')
         return value
 
+    def validate(self, attrs):
+        readcount = attrs.get('readcount')
+        commentcount = attrs.get('commentcount')
+        if commentcount > readcount:
+            raise serializers.ValidationError('评论量不能大于阅读量')
+        return attrs
+
+    def create(self, validated_data):
+        # validated data验证没有问题的数据
+        # 如果我们的data经过我们的层层验证,没有问题,则
+        # validated data = data
+        return BookInfo.objects.create(**validated_data)
+
+
+
 
 class PeopleInfoSerializer(serializers.Serializer):
     """英雄数据序列化器"""
@@ -75,5 +90,21 @@ IntegerField(max_ value=10,min_ vaLue=1)
 required=True默认是True
 read only:只用于序列化使用。反序列化的时候忽略该字段
 write_ only:只是用于反序列化使用。序列化的时候忽略该字段
+
+
+
+3.如果我们的数据,满足类型要求,又满足选项要求。我们如果需要对数据
+进行进一步验证的时候，可以实现以下方法:
+以validate_开头 接字段名字的方法
+value就是字段对应的值
+例如:
+def validate_ readcount(self , value):
+return value
+
+
+
+如果我们的序列化器是维承自Serialzier
+当调用序列化器的save方法的时候，会触发调用序列化器的create方法
+
 """
 

@@ -125,9 +125,10 @@ data = {
     'name': '机器学习',
     'pub_date': '2020-01-01',
     'readcount': 100,
-    'commentcount':200
+    'commentcount': 20
 }
 
 
 serializer = BookInfoSerializer(data=data)
 serializer.is_valid(raise_exception=True)
+serializer.save()
