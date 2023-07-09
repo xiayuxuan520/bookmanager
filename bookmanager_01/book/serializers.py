@@ -50,6 +50,14 @@ class BookInfoSerializer(serializers.Serializer):
         # validated data = data
         return BookInfo.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        """更新，instance为要更新的对象实例"""
+        instance.name = validated_data.get('name', instance.name)
+        instance.pub_date = validated_data.get('pub_date', instance.pub_date)
+        instance.readcount = validated_data.get('readcount', instance.readcount)
+        instance.commentcount = validated_data.get('commentcount', instance.commentcount)
+        instance.save()
+        return instance
 
 
 
